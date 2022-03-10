@@ -18,7 +18,7 @@ If you haven't installed the Firebase CLI, [check out how to](https://firebase.g
 
 #### Environment variables
 
-I have registered a web app under the nickname `tiers-web` and copied the connection config:
+I have registered a web app under the nickname `hg2022-3afc2f` and copied the connection config:
 
 ```env
 # .env
@@ -36,7 +36,7 @@ FIREBASE_PRIVATE_KEY
 FIREBASE_CLIENT_EMAIL
 ```
 
-The private key (`FIREBASE_PRIVATE_KEY`) and client email (`FIREBASE_CLIENT_EMAIL`) can be found on the [service accounts settings page](https://console.firebase.google.com/project/tiers-cb3ed/settings/serviceaccounts/adminsdk) on Firebase.
+The private key (`FIREBASE_PRIVATE_KEY`) and client email (`FIREBASE_CLIENT_EMAIL`) can be found on the [service accounts settings page](https://console.firebase.google.com/project/hg2022-3afc2f/settings/serviceaccounts/adminsdk) on Firebase.
 
 `FIREBASE_AUTH_EMULATOR_HOST` should be `localhost:9099` on development. `FIRESTORE_EMULATOR_HOST` should be `localhost:8080`. Ensure that properly set, otherwise `firestoreAdminFirestore` will edit data on the production Firestore database and make you think everything is failing silently!
 
