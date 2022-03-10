@@ -8,10 +8,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Tier system</title>
+        <title>raiSE Membership</title>
       </Head>
 
-      <PageTitle>Battalion App</PageTitle>
+      <PageTitle>raiSEs Membership app</PageTitle>
     </>
   );
 }
