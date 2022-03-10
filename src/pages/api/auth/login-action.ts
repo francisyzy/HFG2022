@@ -1,6 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nc from "next-connect";
-import firebaseAdmin, { authAdmin, firestoreAdmin } from "@/lib/firebaseAdmin";
+import firebaseAdmin, {
+  authAdmin,
+  firestoreAdmin,
+} from "@/lib/firebaseAdmin";
 import { Collections } from "@/constants/collections";
 import { formatUser } from "@/store/useAuth";
 import { withAuth } from "@/middleware/withAuth";
@@ -29,7 +32,7 @@ const handler = nc<NextApiRequest, NextApiResponse>()
       /* New user, set initial fields */
       console.log("User logging in for the first time");
 
-      const newUser = { ...user, points: 10 };
+      const newUser = { ...user, points: 10, merchant: false };
       console.log(newUser);
       console.log(req["body"]);
 

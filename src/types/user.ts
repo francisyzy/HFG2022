@@ -2,6 +2,7 @@ export interface IUser {
   uid: string;
   email: string;
   name: string;
+  merchant?: boolean;
   lastLogIn?: Date;
   points?: number;
 }
