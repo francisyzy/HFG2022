@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* Padding for navbar and page layout */
+  .space {
+    @apply py-md px-lg;
+    @apply md:py-md md:px-20;
+    @apply lg:py-md lg:px-20;
+    @apply xl:py-md xl:px-80;
+  }
+
+  /* For centerring https://github.com/tailwindlabs/tailwindcss/discussions/1531 */
+  .inset-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@layer components {
+  .ghost {
+    @apply inline-flex -mx-sm -my-xs px-sm py-xs rounded-md;
+    @apply transition-colors;
+
+    &:hover {
+      @apply bg-gray-200;
+    }
+  }
+
+  // button group
+  .button-group {
+    @apply flex -m-2;
+
+    > * {
+      @apply m-2;
+    }
+  }
+
+  // Form
+  .form-label {
+    @apply block text-lg font-semibold;
+  }
+  .form-field {
+    @apply block w-full rounded border-gray-300;
+    @apply placeholder-gray-300;
+    @apply focus:border-indigo-500 focus:ring-4 focus:ring-indigo-200;
+  }
+  .form-errors {
+    @apply text-red-500 font-medium;
+  }
+}
