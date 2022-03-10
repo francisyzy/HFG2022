@@ -12,13 +12,13 @@ if (!firebase.apps.length) {
 }
 
 const auth = firebase.auth();
-if (process.env.NODE_ENV === "development") {
-  auth.useEmulator("http://localhost:9099");
-}
+// if (process.env.NODE_ENV === "development") {
+//   auth.useEmulator("http://localhost:9099");
+// }
 const firestore = firebase.firestore();
-if (process.env.NODE_ENV === "development") {
-  firestore.useEmulator("localhost", 8080);
-}
+// if (process.env.NODE_ENV === "development") {
+//   firestore.useEmulator("localhost", 8080);
+// }
 
 export default firebase;
 export { auth, firestore };

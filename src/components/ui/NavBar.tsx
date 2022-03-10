@@ -9,7 +9,7 @@ export const NavBar = () => {
       {/* Logo */}
       <div className="font-bold">
         <Link href="/">
-          <a className="ghost">3TPT</a>
+          <a className="ghost">HFG-2022</a>
         </Link>
       </div>
 
