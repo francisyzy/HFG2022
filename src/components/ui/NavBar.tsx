@@ -28,7 +28,7 @@ export const NavBar = () => {
                   {/* <li>Apply</li> */}
                   <li>
                     <Link href="/profile">
-                      <a className="ghost">{user?.name}</a>
+                      <a className="ghost">{user?.name || "Profile"}</a>
                     </Link>
                   </li>
                 </>
