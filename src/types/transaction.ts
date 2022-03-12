@@ -1,9 +1,10 @@
 export interface ITransaction {
   uid: string;
 
-  fromUserUid: string;
-  toUserUid: string;
+  merchantUID: string;
+  userUID: string;
+
+  createdAt: Date;
 
   points: number;
-  message?: string;
 }
