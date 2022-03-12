@@ -28,7 +28,14 @@ const useAuth = () => {
         setUser(user);
       });
   };
+  
 
+  //Hongyao's code
+  const addVoucher5 = async (data: { Voucher: number}) => {
+    const [newUser, error] = await fetcher.post<IUser>("/user", data);
+    if (error) throw error;
+  };
+  
   const signinWithEmail = async (email: string, password: string) => {
     return auth
       .signInWithEmailAndPassword(email, password)
@@ -82,6 +89,7 @@ const useAuth = () => {
     signinWithEmail,
     signout,
     update,
+    addVoucher5
   };
 };
 

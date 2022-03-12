@@ -12,12 +12,16 @@ import { useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { withAuth } from "@/middleware/withAuth";
-import useAuth from "@/store/useAuth";
 import { fillForm } from "@/utils/form-debug";
 import { loginSchema } from "@/schemas/auth/login";
 
+import { firestoreAdmin } from "@/lib/firebaseAdmin";
+import useAuth from "@/store/useAuth";
+import { Collections } from "@/constants/collections";
+import { withAuth } from "@/middleware/withAuth";
+import { fixFirebaseDate } from "@/utils/fix-firebase-date";
 import { IUser } from "@/types/user";
+
 interface ProfileProps {
   user: IUser;
 }
@@ -29,41 +33,55 @@ import {
   FormErrorBlock,
   FormDebug,
 } from "@/components/form";
-import { PageTitle, Button, SmartLink, Loading } from "@/components/ui";
+import { ButtonGroup, PageTitle, Button, SmartLink, Loading } from "@/components/ui";
 
-export default function Auth({ }) {
+export default function Profile({ user }: ProfileProps) {
   const router = useRouter();
-  const { isAuthed, signinWithEmail } = useAuth();
-  const { register, errors, handleSubmit, watch, setValue } = useForm({
-    mode: "onBlur",
-    resolver: yupResolver(loginSchema),
-  });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const { signout } = useAuth();
+  const { addVoucher5 } = useAuth();
+  const { addVoucher10 } = useAuth();
+  const { addVoucher20 } = useAuth();
 
-  const onSubmit = async ({ email, password }) => {
+  const logout = () => {
+    signout();
+    router.push("/login");
+  };
+
+  const add10 = () => {
+    addVoucher10();
+    router.push("/login");
+  };
+
+  const add20 = () => {
+    addVoucher20();
+    router.push("/login");
+  };
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(undefined);
+
+  const add5 = async (data) => {
     setLoading(true);
     setError(undefined);
+
     try {
-      await signinWithEmail(email, password);
+      await addVoucher5(5);
       router.push("/profile");
-    } catch (error) {
-      setError(error.message);
+      location.reload();
+    } catch (e) {
+      console.log("Error in editing profile");
+      setError(e);
     }
     setLoading(false);
   };
 
-  const fillFormUser = () => {
-    fillForm(setValue, { email: "user@mail.com", password: "password" });
-  };
-  
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: 'center',
     color: 'black',
-    fontWeight : 'BOLD'
+    fontWeight: 'BOLD'
   }));
   const Item2 = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -75,103 +93,75 @@ export default function Auth({ }) {
 
   return (
     <>
-      <PageTitle className="mb-base">Vouchers</PageTitle>
-      <div className="bg-gray-700 py-xs px-sm rounded text-gray-100 font-mono">
-          {user.points}
+      <div className="flex items-center justify-between">
+        <PageTitle className="mb-base">Vouchers</PageTitle>
+        <div className="flex bg-gray-700 py-xs px-sm rounded text-gray-100 font-mono">
+          <h1>Current Points : </h1>{user.points}
+        </div>
       </div>
+
       <div>
-        <h1>Redeem more Vouchers </h1>
-        
+        <h1>Redeem more vouchers here:</h1>
+
         <Grid container spacing={2}>
           <Grid item xs>
-            <Item>$10 Voucher<Item2>10 points to redeem</Item2></Item>
+            <Item>$5 Voucher ( 5 reward points )<Button className="container" onClick={add5}><Item2>Click here to redeem</Item2></Button></Item>
           </Grid>
           <Grid item xs>
-          <Item>$5 Voucher<Item2>5 points to redeem</Item2></Item>
+            <Item>$10 Voucher ( 10 reward points )<Button className="container" onClick={add10}><Item2>Click here to redeem</Item2></Button></Item>
           </Grid>
           <Grid item xs>
-          <Item>$15 Voucher<Item2>15 points to redeem</Item2></Item>
+            <Item>$20 Voucher ( 20 reward points )<Button className="container" onClick={add20}><Item2>Click here to redeem</Item2></Button></Item>
           </Grid>
         </Grid>
-      </div> 
-      
+      </div>
+
       <div>
         <h1>My Vouchers</h1>
         <Grid container spacing={2}>
           <Grid item xs>
-            <Item>$10 Voucher<Item2>Click to redeem</Item2></Item>
+            <Item>$5 Voucher<Button className="container"><Item2>Click here to use voucher</Item2></Button></Item>
           </Grid>
           <Grid item xs>
-          <Item>$5 Voucher<Item2>Click to redeem</Item2></Item>
+            <Item>$10 Voucher<Button className="container"><Item2>Click here to use voucher</Item2></Button></Item>
           </Grid>
           <Grid item xs>
-          <Item>$15 Voucher<Item2>Click to redeem</Item2></Item>
+            <Item>$20 Voucher<Button className="container"><Item2>Click here to use voucher</Item2></Button></Item>
           </Grid>
         </Grid>
       </div>
 
-
-      {isAuthed ? (
-        <>
-          <div className="mb-base">
-            You have been signed in. Please click{" "}
-            <SmartLink underline href="/">
-              here
-            </SmartLink>{" "}
-            if you are not redirected within 3 seconds.
-          </div>
-
-          <Loading sizes={[3, 2, 4, 3]}></Loading>
-        </>
-      ) : (
-        <>
-          <FormWrapper onSubmit={handleSubmit(onSubmit)}>
-            <FormField
-              name="email"
-              type="email"
-              label="Email"
-              errors={errors}
-              ref={register}
-            ></FormField>
-            <FormField
-              name="password"
-              type="password"
-              label="Password"
-              errors={errors}
-              ref={register}
-            ></FormField>
-
-            {error && <FormErrorBlock error={error}></FormErrorBlock>}
-
-            <FormEnd>
-              <Button href="/signup">Sign up</Button>
-              <Button primary submit loading={loading}>
-                Login
-              </Button>
-            </FormEnd>
-
-            <FormDebug
-              data={{ ...watch() }}
-              actions={[{ function: fillFormUser, text: "User" }]}
-            ></FormDebug>
-          </FormWrapper>
-        </>
-      )}
+      <ButtonGroup className="mt-base">
+        <Button danger onClick={logout}>
+          Logout
+        </Button>
+      </ButtonGroup>
     </>
   );
 }
 
 export async function getServerSideProps({ req, res }) {
   const handler = nc().use(withAuth());
+
   try {
     await handler.run(req, res);
-    // Redirect to index if logged in
+  } catch (e) {
     return {
       redirect: {
-        destination: "/",
+        destination: "/login",
         permanent: false,
       },
     };
-  } catch (e) { }
-  return { props: {} };
+  }
+
+  const user = await firestoreAdmin
+    .collection(Collections.USERS)
+    .doc(req.user.uid)
+    .get();
+
+  return {
+    props: {
+      user: fixFirebaseDate(user.data()),
+    },
+  };
 }
