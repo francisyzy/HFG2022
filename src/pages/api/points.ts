@@ -40,11 +40,9 @@ const handler = nc<NextApiRequest, NextApiResponse>()
         userUID = doc.id;
       });
       if (userUID == req["user"].uid) {
-        return res
-          .status(400)
-          .json({
-            message: "You are not allowed to give yourself points",
-          });
+        return res.status(400).json({
+          message: "You are not allowed to give yourself points",
+        });
       }
       const transactionRef = firestoreAdmin
         .collection(Collections.TRANSACTIONS)
@@ -54,8 +52,15 @@ const handler = nc<NextApiRequest, NextApiResponse>()
         .doc(userUID);
 
       await firestoreAdmin.runTransaction(async (t) => {
-        const newPoints =
-          (await user.get()).data().points + additionalPoints;
+        const userData = (await user.get()).data();
+        const newPoints = userData.points + additionalPoints;
+        const userName = userData.name;
+        const merchantName = (
+          await firestoreAdmin
+            .collection(Collections.USERS)
+            .doc(req["user"].uid)
+            .get()
+        ).data().name;
         t.update(user, { points: newPoints });
         t.create(transactionRef, {
           amountSpent: Number(req.body["amountSpent"]),
@@ -64,6 +69,8 @@ const handler = nc<NextApiRequest, NextApiResponse>()
           merchantUID: req["user"].uid,
           userUID: userUID,
           uid: transactionRef.id,
+          userName: userName,
+          merchantName: merchantName,
         });
       });
 

@@ -41,14 +41,15 @@ export default function Profile({ user }: ProfileProps) {
       </div>
 
       <ButtonGroup className="mt-base">
+        <Button href="/profile/edit" icon={<FaPencilAlt></FaPencilAlt>}>
+          Edit Profile
+        </Button>
+        <Button href="/pointHistory">Point history</Button>
         {user.merchant ? (
           <Button href="/addPoints">Add Points</Button>
         ) : (
           <></>
         )}
-        <Button href="/profile/edit" icon={<FaPencilAlt></FaPencilAlt>}>
-          Edit Profile
-        </Button>
         <Button danger onClick={logout}>
           Logout
         </Button>
