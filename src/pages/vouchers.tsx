@@ -46,7 +46,7 @@ export default function Auth({ }) {
   const fillFormUser = () => {
     fillForm(setValue, { email: "user@mail.com", password: "password" });
   };
-
+  /*
   const Item = styled()(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -54,7 +54,7 @@ export default function Auth({ }) {
     textAlign: 'center',
     color: theme.palette.text.secondary,
   }))
-  
+*/
   return (
     <>
       <PageTitle className="mb-base">Vouchers</PageTitle>
