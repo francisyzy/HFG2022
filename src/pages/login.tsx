@@ -41,8 +41,14 @@ export default function Auth({}) {
     setLoading(false);
   };
 
-  const fillFormUser = () => {
+  const fillFormMerchant = () => {
     fillForm(setValue, { email: "user@mail.com", password: "password" });
+  };
+  const fillFormUser = () => {
+    fillForm(setValue, {
+      email: "spam@francisyzy.com",
+      password: "password",
+    });
   };
 
   return (
@@ -90,7 +96,10 @@ export default function Auth({}) {
 
             <FormDebug
               data={{ ...watch() }}
-              actions={[{ function: fillFormUser, text: "User" }]}
+              actions={[
+                { function: fillFormMerchant, text: "Merchant" },
+                { function: fillFormUser, text: "User" },
+              ]}
             ></FormDebug>
           </FormWrapper>
         </>
