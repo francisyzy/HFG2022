@@ -38,12 +38,14 @@ export default function Profile({ user }: ProfileProps) {
         <div className="bg-gray-700 py-xs px-sm rounded text-gray-100 font-mono">
           {user.points}
         </div>
-        <div className="bg-gray-700 py-xs px-sm rounded text-gray-100 font-mono">
-          {user.merchant.toString()}
-        </div>
       </div>
 
       <ButtonGroup className="mt-base">
+        {user.merchant ? (
+          <Button href="/addPoints">Add Points</Button>
+        ) : (
+          <></>
+        )}
         <Button href="/profile/edit" icon={<FaPencilAlt></FaPencilAlt>}>
           Edit Profile
         </Button>
