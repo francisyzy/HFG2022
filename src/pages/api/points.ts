@@ -39,6 +39,13 @@ const handler = nc<NextApiRequest, NextApiResponse>()
       usersRef.forEach((doc) => {
         userUID = doc.id;
       });
+      if (userUID == req["user"].uid) {
+        return res
+          .status(400)
+          .json({
+            message: "You are not allowed to give yourself points",
+          });
+      }
       const transactionRef = firestoreAdmin
         .collection(Collections.TRANSACTIONS)
         .doc();
