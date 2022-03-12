@@ -1,5 +1,10 @@
-import { Grid } from '@material-ui/core';
-import { styled } from '@material-ui/core';
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+
+
 import { useState } from "react";
 import nc from "next-connect";
 import { useRouter } from "next/router";
@@ -46,36 +51,56 @@ export default function Auth({ }) {
   const fillFormUser = () => {
     fillForm(setValue, { email: "user@mail.com", password: "password" });
   };
-  /*
-  const Item = styled()(({ theme }) => ({
+  
+  const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }))
-*/
+    color: 'black',
+    fontWeight : 'BOLD'
+  }));
+  const Item2 = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(5),
+    textAlign: 'center',
+    color: 'black'
+  }));
+
   return (
     <>
       <PageTitle className="mb-base">Vouchers</PageTitle>
-
+      
       <div>
-        <h1>Redeem Vouchers</h1>
-        <Grid container spacing={3}>
-          <Grid item xs="auto">
-            <Item>variable width content</Item>
-          </Grid>
-          <Grid item xs={6}>
-            <Item>xs=6</Item>
+        <h1>Redeem more Vouchers </h1>
+        
+        <Grid container spacing={2}>
+          <Grid item xs>
+            <Item>$10 Voucher<Item2>10 points to redeem</Item2></Item>
           </Grid>
           <Grid item xs>
-            <Item>xs</Item>
+          <Item>$5 Voucher<Item2>5 points to redeem</Item2></Item>
+          </Grid>
+          <Grid item xs>
+          <Item>$15 Voucher<Item2>15 points to redeem</Item2></Item>
           </Grid>
         </Grid>
-      </div>
-
+      </div> 
+      
       <div>
-        <h1>Owned Vouchers</h1>
+        <h1>My Vouchers</h1>
+        <Grid container spacing={2}>
+          <Grid item xs>
+            <Item>$10 Voucher<Item2>Click to redeem</Item2></Item>
+          </Grid>
+          <Grid item xs>
+          <Item>$5 Voucher<Item2>Click to redeem</Item2></Item>
+          </Grid>
+          <Grid item xs>
+          <Item>$15 Voucher<Item2>Click to redeem</Item2></Item>
+          </Grid>
+        </Grid>
       </div>
 
 
