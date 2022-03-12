@@ -61,7 +61,7 @@ export default function AddPoints({
         setLoading(false);
         return;
       }
-      router.push("/");
+      router.push("/pointHistory");
     } catch (e) {
       console.log("Error in adding points");
       setError(e);
