@@ -17,6 +17,11 @@ import useAuth from "@/store/useAuth";
 import { fillForm } from "@/utils/form-debug";
 import { loginSchema } from "@/schemas/auth/login";
 
+import { IUser } from "@/types/user";
+interface ProfileProps {
+  user: IUser;
+}
+
 import {
   FormWrapper,
   FormField,
@@ -71,7 +76,9 @@ export default function Auth({ }) {
   return (
     <>
       <PageTitle className="mb-base">Vouchers</PageTitle>
-      
+      <div className="bg-gray-700 py-xs px-sm rounded text-gray-100 font-mono">
+          {user.points}
+      </div>
       <div>
         <h1>Redeem more Vouchers </h1>
         
