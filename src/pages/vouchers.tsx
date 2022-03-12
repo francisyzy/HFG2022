@@ -1,3 +1,5 @@
+import { Grid } from '@material-ui/core';
+import { styled } from '@material-ui/core';
 import { useState } from "react";
 import nc from "next-connect";
 import { useRouter } from "next/router";
@@ -19,7 +21,7 @@ import {
 } from "@/components/form";
 import { PageTitle, Button, SmartLink, Loading } from "@/components/ui";
 
-export default function Auth({}) {
+export default function Auth({ }) {
   const router = useRouter();
   const { isAuthed, signinWithEmail } = useAuth();
   const { register, errors, handleSubmit, watch, setValue } = useForm({
@@ -45,9 +47,37 @@ export default function Auth({}) {
     fillForm(setValue, { email: "user@mail.com", password: "password" });
   };
 
+  const Item = styled()(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }))
+  
   return (
     <>
       <PageTitle className="mb-base">Vouchers</PageTitle>
+
+      <div>
+        <h1>Redeem Vouchers</h1>
+        <Grid container spacing={3}>
+          <Grid item xs="auto">
+            <Item>variable width content</Item>
+          </Grid>
+          <Grid item xs={6}>
+            <Item>xs=6</Item>
+          </Grid>
+          <Grid item xs>
+            <Item>xs</Item>
+          </Grid>
+        </Grid>
+      </div>
+
+      <div>
+        <h1>Owned Vouchers</h1>
+      </div>
+
 
       {isAuthed ? (
         <>
@@ -110,6 +140,6 @@ export async function getServerSideProps({ req, res }) {
         permanent: false,
       },
     };
-  } catch (e) {}
+  } catch (e) { }
   return { props: {} };
 }
