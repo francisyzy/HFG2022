@@ -8,7 +8,7 @@ export const NavBar = () => {
     <header className="w-full space border-b-2 flex items-center justify-between bg-gray-50">
       {/* Logo */}
       <div className="font-bold">
-        <Link href="/">
+        <Link href="/main">
           <a className="ghost">HFG-2022</a>
         </Link>
       </div>

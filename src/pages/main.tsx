@@ -1,12 +1,8 @@
 import { useRouter } from "next/router";
-import nc from "next-connect";
-import { FaPencilAlt } from "react-icons/fa";
 
 import { firestoreAdmin } from "@/lib/firebaseAdmin";
 import useAuth from "@/store/useAuth";
 import { Collections } from "@/constants/collections";
-import { withAuth } from "@/middleware/withAuth";
-import { fixFirebaseDate } from "@/utils/fix-firebase-date";
 import { ILocation } from "@/types/location";
 
 import Card from '@mui/material/Card';
@@ -26,95 +22,74 @@ export default function Main({ location }: LocationProps) {
   const router = useRouter();
   const { signout } = useAuth();
 
-  const logout = () => {
-    signout();
-    router.push("/login");
-  };
+  let index = 0;
+  for (let i = 0; i < 9999; i++) {
+    if (typeof location[i] === "undefined") {
+      index = i;
+      break;
+    } 
+  }
+
 
   return (
     <>
       <div className="flex items-center justify-between">
-        <PageTitle>Welcome to raiSEs Membership app</PageTitle>
+        <PageTitle>View locations near you:</PageTitle>
       </div>
 
-      <div className="flex align-items center">
-        <h3>View locations near YOU:</h3>
-      </div>
-
-      <div>
-        <Card sx={{ maxWidth: 250 }}>
-        <CardMedia
-          component="img"
-          height="300"
-          image="https://www.raise.sg/images/directories/logo/1646467250_Vertical%20Logo%20+%20blue%20bg.png"
-          alt="21 EXTRA GOODNESS"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {"21 EXTRA GOODNESS"}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Distance: {"1.2KM"}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Address: {"Unknown address"}
-          </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Share</Button>
-            <Button size="small">View details</Button>
-          </CardActions>
-        </Card>
-        <br/>
-        <Card sx={{ maxWidth: 250 }}>
-        <CardMedia
-          component="img"
-          height="300"
-          image="https://www.raise.sg/images/directories/logo/1646467250_Vertical%20Logo%20+%20blue%20bg.png"
-          alt="21 EXTRA GOODNESS"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {"KIMCHI XPRESS"}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Distance: {"3.0KM"}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Address: {"Unknown address"}
-          </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">View details</Button>
-          </CardActions>
-        </Card>
-      </div>
+        {[...Array(index)].map((x, i) => {
+          return (
+          <div key={i}>
+          <Card sx={{ maxWidth: 350 }}>
+            <CardMedia
+              component="img"
+              height="300"
+              image={"../../favicon/" + i + ".png"}
+              alt={location[i].name}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {location[i].name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Category: {location[i].type}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Distance: {location[i].distance + " km"}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Address: {location[i].address}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Description: {location[i].shortDescription}
+              </Typography>
+              </CardContent>
+            <CardActions>
+              <Button size="small" href={location[i].externalURL} target="_blank">View more details</Button>
+            </CardActions>
+          </Card>
+          <br/>
+          </div>
+        )})}
     </>
   );
 }
 
-// export async function getServerSideProps({ req, res }) {
-//   const handler = nc().use(withAuth());
+export async function getServerSideProps({ req, res }) {
+  let locations = []
+  const location = await firestoreAdmin
+    .collection(Collections.LOCATIONS)
+    .get();
 
-//   try {
-//     await handler.run(req, res);
-//   } catch (e) {
-//     return {
-//       redirect: {
-//         destination: "/login",
-//         permanent: false,
-//       },
-//     };
-//   }
+  location.forEach(async (doc) => {
+    locations.push({
+      ...doc.data()
+    })
+  })
 
-//   const user = await firestoreAdmin
-//     .collection(Collections.USERS)
-//     .doc(req.user.uid)
-//     .get();
-
-//   return {
-//     props: {
-//       user: fixFirebaseDate(user.data()),
-//     },
-//   };
-// }
+  return {
+    props: {
+      location: locations,
+    },
+  };
+}
