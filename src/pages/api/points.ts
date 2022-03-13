@@ -1,17 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nc from "next-connect";
 
-import firebaseAdmin, {
-  authAdmin,
-  firestoreAdmin,
-} from "@/lib/firebaseAdmin";
+import { firestoreAdmin } from "@/lib/firebaseAdmin";
 import { Collections } from "@/constants/collections";
 import { withAuth } from "@/middleware/withAuth";
 
-import { fixFirebaseDate } from "@/utils/fix-firebase-date";
 import { withValidate } from "@/middleware/withValidate";
 import { addPointsSchema } from "@/schemas/points/add";
-import { ITransaction } from "@/types/transaction";
 
 /* Create TRANSACTIONS */
 
