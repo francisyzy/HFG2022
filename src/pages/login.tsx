@@ -42,11 +42,14 @@ export default function Auth({}) {
   };
 
   const fillFormMerchant = () => {
-    fillForm(setValue, { email: "user@mail.com", password: "password" });
+    fillForm(setValue, {
+      email: "pos@singheng.com.sg",
+      password: "password",
+    });
   };
   const fillFormUser = () => {
     fillForm(setValue, {
-      email: "spam@francisyzy.com",
+      email: "customer@francisyzy.com",
       password: "password",
     });
   };
