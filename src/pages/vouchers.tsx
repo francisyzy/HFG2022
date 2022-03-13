@@ -248,7 +248,7 @@ export default function Profile({ user }: ProfileProps) {
               <Button className="container" onClick={remove5}>
                   <Item2>Click here to use voucher</Item2>
                   <div className="flex bg-gray-700 py-xs px-sm rounded text-gray-100 font-mono">
-                    <h1>You have : </h1>{user.voucher5}
+                    <h1>You have : </h1>{user.voucher5 ? user.voucher10 : 0}
                   </div>
               </Button>
             </Item>
