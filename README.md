@@ -1,6 +1,8 @@
-# Next Firebase Template
+# Hack for good 2022 (HFG-2022)
 
-> Template to use in future projects
+raiSE-loyalty-customer webapp
+
+demo: https://raise-loyalty-customer.herokuapp.com/
 
 ## Firebase
 
