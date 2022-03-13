@@ -4,6 +4,8 @@ raiSE-loyalty-customer webapp
 
 demo: https://raise-loyalty-customer.herokuapp.com/
 
+devpost: https://devpost.com/software/raise-loyalty-customer
+
 ## Firebase
 
 - [x] Set up Firebase Admin
