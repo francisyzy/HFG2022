@@ -48,6 +48,10 @@ export default function Profile({ user }: ProfileProps) {
     router.push("/login");
   };
 
+  const merchantPage = () => {
+    router.push("/login");
+  };
+
   const add10 = async (data) => {
     setLoading(true);
     setError(undefined);
@@ -166,7 +170,7 @@ export default function Profile({ user }: ProfileProps) {
         <Grid container spacing={2}>
           <Grid item xs>
             <Item>$5 Voucher
-              <Button className="container">
+              <Button className="container" onClick={merchantPage}>
                   <Item2>Click here to use voucher</Item2>
                   <div className="flex bg-gray-700 py-xs px-sm rounded text-gray-100 font-mono">
                     <h1>You have : </h1>{user.voucher5}
@@ -175,12 +179,12 @@ export default function Profile({ user }: ProfileProps) {
             </Item>
           </Grid>
           <Grid item xs>
-            <Item>$10 Voucher<Button className="container"><Item2>Click here to use voucher</Item2><div className="flex bg-gray-700 py-xs px-sm rounded text-gray-100 font-mono">
+            <Item>$10 Voucher<Button className="container" onClick={merchantPage}><Item2>Click here to use voucher</Item2><div className="flex bg-gray-700 py-xs px-sm rounded text-gray-100 font-mono">
                     <h1>You have : </h1>{user.voucher10 ? user.voucher10 : 0}
                   </div></Button></Item>
           </Grid>
           <Grid item xs>
-            <Item>$20 Voucher<Button className="container"><Item2>Click here to use voucher</Item2><div className="flex bg-gray-700 py-xs px-sm rounded text-gray-100 font-mono">
+            <Item>$20 Voucher<Button className="container" onClick={merchantPage}><Item2>Click here to use voucher</Item2><div className="flex bg-gray-700 py-xs px-sm rounded text-gray-100 font-mono">
                     <h1>You have : </h1>{user.voucher20 ? user.voucher20 : 0}
                   </div></Button></Item>
           </Grid>
