@@ -75,17 +75,24 @@ export default function ListPoints({
       <PageTitle className="mt-xs">
         Point {user.merchant ? "distribution" : "receive"} history
       </PageTitle>
-      {transactions.map((field, index) => {
-        return (
-          <div>
-            <div>{field.createdAt.toString()}</div>
-            <div>{field.pointsAdded}</div>
-            <div>
-              {user.merchant ? field.userName : field.merchantName}
-            </div>
-          </div>
-        );
-      })}
+      <table>
+        <tr>
+          <td>DateTime</td>
+          <td>{user.merchant ? "Points given" : "Points received"}</td>
+          <td>{user.merchant ? "Customer" : "Merchant"}</td>
+        </tr>
+        {transactions.map((field, index) => {
+          return (
+            <tr>
+              <td>{field.createdAt.toString()}</td>
+              <td>{field.pointsAdded}</td>
+              <td>
+                {user.merchant ? field.userName : field.merchantName}
+              </td>
+            </tr>
+          );
+        })}
+      </table>
     </>
   );
 }
