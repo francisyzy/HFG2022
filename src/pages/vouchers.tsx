@@ -75,6 +75,70 @@ export default function Profile({ user }: ProfileProps) {
     }
     setLoading(false);
   };
+
+  const remove5 = async (data) => {
+    setLoading(true);
+    setError(undefined);
+    const submitData = {
+      name: user.name,
+      email: user.email,
+      voucher5: user.voucher5 - 1,
+    };
+
+    try {
+      if(user.voucher5) {
+        addVoucher5(submitData);
+        router.push("/voucherUsed");
+      }
+    } catch (e) {
+      console.log("Error in using voucher");
+      setError(e);
+    }
+    setLoading(false);
+  };
+
+  const remove10 = async (data) => {
+    setLoading(true);
+    setError(undefined);
+    const submitData = {
+      name: user.name,
+      email: user.email,
+      voucher10: user.voucher10 - 1,
+    };
+
+    try {
+      if(user.voucher10) {
+        addVoucher10(submitData);
+        router.push("/voucherUsed");
+      }
+    } catch (e) {
+      console.log("Error in using voucher");
+      setError(e);
+    }
+    setLoading(false);
+  };
+
+  const remove20 = async (data) => {
+    setLoading(true);
+    setError(undefined);
+    const submitData = {
+      name: user.name,
+      email: user.email,
+      voucher20: user.voucher20 - 1,
+    };
+
+    try {
+      if(user.voucher20) {
+        addVoucher20(submitData);
+        router.push("/voucherUsed");
+      }
+    } catch (e) {
+      console.log("Error in using voucher");
+      setError(e);
+    }
+    setLoading(false);
+  };
+
   const add20 = async (data) => {
     setLoading(true);
     setError(undefined);
@@ -172,7 +236,7 @@ export default function Profile({ user }: ProfileProps) {
         <Grid container spacing={2}>
           <Grid item xs>
             <Item>$5 Voucher
-              <Button className="container" onClick={merchantPage}>
+              <Button className="container" onClick={remove5}>
                   <Item2>Click here to use voucher</Item2>
                   <div className="flex bg-gray-700 py-xs px-sm rounded text-gray-100 font-mono">
                     <h1>You have : </h1>{user.voucher5}
@@ -181,12 +245,12 @@ export default function Profile({ user }: ProfileProps) {
             </Item>
           </Grid>
           <Grid item xs>
-            <Item>$10 Voucher<Button className="container" onClick={merchantPage}><Item2>Click here to use voucher</Item2><div className="flex bg-gray-700 py-xs px-sm rounded text-gray-100 font-mono">
+            <Item>$10 Voucher<Button className="container" onClick={remove10}><Item2>Click here to use voucher</Item2><div className="flex bg-gray-700 py-xs px-sm rounded text-gray-100 font-mono">
                     <h1>You have : </h1>{user.voucher10 ? user.voucher10 : 0}
                   </div></Button></Item>
           </Grid>
           <Grid item xs>
-            <Item>$20 Voucher<Button className="container" onClick={merchantPage}><Item2>Click here to use voucher</Item2><div className="flex bg-gray-700 py-xs px-sm rounded text-gray-100 font-mono">
+            <Item>$20 Voucher<Button className="container" onClick={remove20}><Item2>Click here to use voucher</Item2><div className="flex bg-gray-700 py-xs px-sm rounded text-gray-100 font-mono">
                     <h1>You have : </h1>{user.voucher20 ? user.voucher20 : 0}
                   </div></Button></Item>
           </Grid>
