@@ -48,7 +48,7 @@ export default function Profile({ user }: ProfileProps) {
         {user.merchant ? (
           <Button href="/addPoints">Add Points</Button>
         ) : (
-          <></>
+          <Button href="/vouchers">My vouchers</Button>
         )}
         <Button danger onClick={logout}>
           Logout
