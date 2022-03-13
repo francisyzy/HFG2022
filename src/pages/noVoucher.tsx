@@ -13,10 +13,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Voucher successfully used</title>
+        <title>Not enough voucher to use</title>
       </Head>
 
-      <PageTitle>Your voucher has been successfully used. Show it to the merchant for discount.</PageTitle>
+      <PageTitle>You do not have enough voucher to use</PageTitle>
 
       <Button onClick={backToVoucher}>Back to voucher page</Button>
     </>

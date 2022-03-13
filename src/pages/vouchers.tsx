@@ -90,6 +90,8 @@ export default function Profile({ user }: ProfileProps) {
       if(user.voucher5) {
         addVoucher5(submitData);
         router.push("/voucherUsed");
+      } else {
+        router.push("/noVoucher");
       }
     } catch (e) {
       console.log("Error in using voucher");
@@ -112,6 +114,8 @@ export default function Profile({ user }: ProfileProps) {
       if(user.voucher10) {
         addVoucher10(submitData);
         router.push("/voucherUsed");
+      } else {
+        router.push("/noVoucher");
       }
     } catch (e) {
       console.log("Error in using voucher");
@@ -134,6 +138,8 @@ export default function Profile({ user }: ProfileProps) {
       if(user.voucher20) {
         addVoucher20(submitData);
         router.push("/voucherUsed");
+      } else {
+        router.push("/noVoucher");
       }
     } catch (e) {
       console.log("Error in using voucher");
