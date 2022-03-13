@@ -82,6 +82,7 @@ export default function Profile({ user }: ProfileProps) {
     const submitData = {
       name: user.name,
       email: user.email,
+      points: user.points,
       voucher5: user.voucher5 - 1,
     };
 
@@ -103,6 +104,7 @@ export default function Profile({ user }: ProfileProps) {
     const submitData = {
       name: user.name,
       email: user.email,
+      points: user.points,
       voucher10: user.voucher10 - 1,
     };
 
@@ -124,6 +126,7 @@ export default function Profile({ user }: ProfileProps) {
     const submitData = {
       name: user.name,
       email: user.email,
+      points: user.points,
       voucher20: user.voucher20 - 1,
     };
 
