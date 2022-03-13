@@ -16,7 +16,7 @@ export default function Home() {
         <title>Voucher unsuccessfully added</title>
       </Head>
 
-      <PageTitle>You have not enough points to redeem voucher</PageTitle>
+      <PageTitle>You do not have enough points to redeem voucher</PageTitle>
 
       <Button onClick={backToVoucher}>Back to voucher page</Button>
     </>

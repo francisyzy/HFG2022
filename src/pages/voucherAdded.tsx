@@ -16,7 +16,7 @@ export default function Home() {
         <title>Voucher successfully added</title>
       </Head>
 
-      <PageTitle>Your Voucher has been successfully added</PageTitle>
+      <PageTitle>Your voucher has been successfully added</PageTitle>
 
       <Button onClick={backToVoucher}>Back to voucher page</Button>
     </>
