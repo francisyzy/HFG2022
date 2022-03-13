@@ -27,6 +27,11 @@ export const NavBar = () => {
                 <>
                   {/* <li>Apply</li> */}
                   <li>
+                    <Link href="/vouchers">
+                      <a className="ghost">Vouchers</a>
+                    </Link>
+                  </li>
+                  <li>
                     <Link href="/profile">
                       <a className="ghost">{user?.name || "Profile"}</a>
                     </Link>
