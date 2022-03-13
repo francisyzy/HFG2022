@@ -5,4 +5,7 @@ export interface IUser {
   merchant?: boolean;
   lastLogIn?: Date;
   points?: number;
+  voucher5?: number;
+  voucher10?: number;
+  voucher20?: number;
 }

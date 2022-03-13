@@ -43,7 +43,8 @@
       "@/schemas/*": [
         "src/schemas/*"
       ]
-    }
+    },
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",
