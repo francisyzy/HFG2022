@@ -31,11 +31,19 @@ const useAuth = () => {
   
 
   //Hongyao's code
-  const addVoucher5 = async (data: { Voucher: number}) => {
+  const addVoucher5 = async (data: {name: string; email: string, voucher5: number}) => {
     const [newUser, error] = await fetcher.post<IUser>("/user", data);
     if (error) throw error;
   };
-  
+  const addVoucher10 = async (data: {name: string; email: string, voucher10: number}) => {
+    const [newUser, error] = await fetcher.post<IUser>("/user", data);
+    if (error) throw error;
+  };
+  const addVoucher20 = async (data: {name: string; email: string, voucher20: number}) => {
+    const [newUser, error] = await fetcher.post<IUser>("/user", data);
+    if (error) throw error;
+  };
+  //
   const signinWithEmail = async (email: string, password: string) => {
     return auth
       .signInWithEmailAndPassword(email, password)
@@ -89,7 +97,9 @@ const useAuth = () => {
     signinWithEmail,
     signout,
     update,
-    addVoucher5
+    addVoucher5,
+    addVoucher10,
+    addVoucher20
   };
 };
 

@@ -38,6 +38,7 @@ import { ButtonGroup, PageTitle, Button, SmartLink, Loading } from "@/components
 export default function Profile({ user }: ProfileProps) {
   const router = useRouter();
   const { signout } = useAuth();
+
   const { addVoucher5 } = useAuth();
   const { addVoucher10 } = useAuth();
   const { addVoucher20 } = useAuth();
@@ -47,14 +48,41 @@ export default function Profile({ user }: ProfileProps) {
     router.push("/login");
   };
 
-  const add10 = () => {
-    addVoucher10();
-    router.push("/login");
-  };
+  const add10 = async (data) => {
+    setLoading(true);
+    setError(undefined);
+    const submitData = {
+      name: user.name,
+      email: user.email,
+      voucher10: user.voucher10 ? user.voucher10 + 1 : 1,
+    };
 
-  const add20 = () => {
-    addVoucher20();
-    router.push("/login");
+    try {
+      addVoucher10(submitData);
+      router.push("/voucherAdded");
+    } catch (e) {
+      console.log("Error in redeeming voucher");
+      setError(e);
+    }
+    setLoading(false);
+  };
+  const add20 = async (data) => {
+    setLoading(true);
+    setError(undefined);
+    const submitData = {
+      name: user.name,
+      email: user.email,
+      voucher20: user.voucher20 ? user.voucher20 + 1 : 1,
+    };
+
+    try {
+      addVoucher20(submitData);
+      router.push("/voucherAdded");
+    } catch (e) {
+      console.log("Error in redeeming voucher");
+      setError(e);
+    }
+    setLoading(false);
   };
 
   const [loading, setLoading] = useState(false);
@@ -63,13 +91,17 @@ export default function Profile({ user }: ProfileProps) {
   const add5 = async (data) => {
     setLoading(true);
     setError(undefined);
+    const submitData = {
+      name: user.name,
+      email: user.email,
+      voucher5: user.voucher5 ? user.voucher5 + 1 : 1,
+    };
 
     try {
-      await addVoucher5(5);
-      router.push("/profile");
-      location.reload();
+      addVoucher5(submitData);
+      router.push("/voucherAdded");
     } catch (e) {
-      console.log("Error in editing profile");
+      console.log("Error in redeeming voucher");
       setError(e);
     }
     setLoading(false);
@@ -120,13 +152,24 @@ export default function Profile({ user }: ProfileProps) {
         <h1>My Vouchers</h1>
         <Grid container spacing={2}>
           <Grid item xs>
-            <Item>$5 Voucher<Button className="container"><Item2>Click here to use voucher</Item2></Button></Item>
+            <Item>$5 Voucher
+              <Button className="container">
+                  <Item2>Click here to use voucher</Item2>
+                  <div className="flex bg-gray-700 py-xs px-sm rounded text-gray-100 font-mono">
+                    <h1>You have : </h1>{user.voucher5}
+                  </div>
+              </Button>
+            </Item>
           </Grid>
           <Grid item xs>
-            <Item>$10 Voucher<Button className="container"><Item2>Click here to use voucher</Item2></Button></Item>
+            <Item>$10 Voucher<Button className="container"><Item2>Click here to use voucher</Item2><div className="flex bg-gray-700 py-xs px-sm rounded text-gray-100 font-mono">
+                    <h1>You have : </h1>{user.voucher10 ? user.voucher10 : 0}
+                  </div></Button></Item>
           </Grid>
           <Grid item xs>
-            <Item>$20 Voucher<Button className="container"><Item2>Click here to use voucher</Item2></Button></Item>
+            <Item>$20 Voucher<Button className="container"><Item2>Click here to use voucher</Item2><div className="flex bg-gray-700 py-xs px-sm rounded text-gray-100 font-mono">
+                    <h1>You have : </h1>{user.voucher20 ? user.voucher20 : 0}
+                  </div></Button></Item>
           </Grid>
         </Grid>
       </div>
