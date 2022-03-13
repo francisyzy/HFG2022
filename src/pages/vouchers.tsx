@@ -58,8 +58,12 @@ export default function Profile({ user }: ProfileProps) {
     };
 
     try {
-      addVoucher10(submitData);
-      router.push("/voucherAdded");
+      if(user.points < 10) {
+        router.push("/noPoints");
+      } else {
+        addVoucher10(submitData);
+        router.push("/voucherAdded");
+      }
     } catch (e) {
       console.log("Error in redeeming voucher");
       setError(e);
@@ -76,8 +80,12 @@ export default function Profile({ user }: ProfileProps) {
     };
 
     try {
-      addVoucher20(submitData);
-      router.push("/voucherAdded");
+      if(user.points < 20) {
+        router.push("/noPoints");
+      } else {
+        addVoucher20(submitData);
+        router.push("/voucherAdded");
+      }
     } catch (e) {
       console.log("Error in redeeming voucher");
       setError(e);
@@ -94,12 +102,17 @@ export default function Profile({ user }: ProfileProps) {
     const submitData = {
       name: user.name,
       email: user.email,
+      points: user.points - 5,
       voucher5: user.voucher5 ? user.voucher5 + 1 : 1,
     };
-
+    
     try {
-      addVoucher5(submitData);
-      router.push("/voucherAdded");
+      if(user.points < 5) {
+        router.push("/noPoints");
+      } else {
+        addVoucher5(submitData);
+        router.push("/voucherAdded");
+      }
     } catch (e) {
       console.log("Error in redeeming voucher");
       setError(e);

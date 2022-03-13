@@ -31,7 +31,7 @@ const useAuth = () => {
   
 
   //Hongyao's code
-  const addVoucher5 = async (data: {name: string; email: string, voucher5: number}) => {
+  const addVoucher5 = async (data: {name: string; email: string, points: number, voucher5: number}) => {
     const [newUser, error] = await fetcher.post<IUser>("/user", data);
     if (error) throw error;
   };
